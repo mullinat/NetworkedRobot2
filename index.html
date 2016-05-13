@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Robot Control</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <H1 onclick="FORWARD()">FORWARD</H1>
+    <H1 onclick="BACKWARD()">BACKWARD</H1>
+    <H1 onclick="LEFT()">LEFT</H1>
+    <H1 onclick="RIGHT()">RIGHT</H1>
+    <H1 onclick="STOP()">STOP</H1>
+    <H1 id="state">HELLO</H1>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io();
+        $('form').submit(function() {
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        function FORWARD(){
+          socket.emit('chat message', "FORWARD");
+        }
+        function BACKWARD(){
+          socket.emit('chat message', "BACKWARD");
+        }
+        function LEFT(){
+          socket.emit('chat message', "LEFT");
+        }
+        function RIGHT(){
+          socket.emit('chat message', "RIGHT");
+        }
+        function STOP(){
+          socket.emit('chat message', "STOP");
+        }
+        socket.on('chat message', function(msg){
+          document.getElementById("state").innerHTML = "THE ROBOT IS MOVING " + msg;
+        });
+    </script>
+</body>
+
+</html>
