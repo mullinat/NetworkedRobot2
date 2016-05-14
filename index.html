@@ -14,33 +14,45 @@
     <H1 onclick="LEFT()">LEFT</H1>
     <H1 onclick="RIGHT()">RIGHT</H1>
     <H1 onclick="STOP()">STOP</H1>
-    <H1 id="state">HELLO</H1>
+    <H1 onclick="SayJoke()">Say Joke</H1>
+    <H3 id="state">ROBOT COMMAND WINDOW</H3>
+    <form action="">
+        <input id="m" autocomplete="off" />
+        <button>Send</button>
+    </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         var socket = io();
+        function FORWARD() {
+            socket.emit('chat message', "FORWARD");
+        }
+
+        function BACKWARD() {
+            socket.emit('chat message', "BACKWARD");
+        }
+
+        function LEFT() {
+            socket.emit('chat message', "LEFT");
+        }
+
+        function RIGHT() {
+            socket.emit('chat message', "RIGHT");
+        }
+
+        function STOP() {
+            socket.emit('chat message', "STOP");
+        }
+        function SayJoke() {
+            socket.emit('chat message', "SayJoke");
+        }
+        socket.on('chat message', function(msg) {
+            document.getElementById("state").innerHTML = msg;
+        });
         $('form').submit(function() {
-            socket.emit('chat message', $('#m').val());
+            socket.emit('chat message', "s" + $('#m').val());
             $('#m').val('');
             return false;
-        });
-        function FORWARD(){
-          socket.emit('chat message', "FORWARD");
-        }
-        function BACKWARD(){
-          socket.emit('chat message', "BACKWARD");
-        }
-        function LEFT(){
-          socket.emit('chat message', "LEFT");
-        }
-        function RIGHT(){
-          socket.emit('chat message', "RIGHT");
-        }
-        function STOP(){
-          socket.emit('chat message', "STOP");
-        }
-        socket.on('chat message', function(msg){
-          document.getElementById("state").innerHTML = "THE ROBOT IS MOVING " + msg;
         });
     </script>
 </body>
