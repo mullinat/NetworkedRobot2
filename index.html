@@ -15,6 +15,7 @@
     <H1 onclick="RIGHT()">RIGHT</H1>
     <H1 onclick="STOP()">STOP</H1>
     <H1 onclick="SayJoke()">Say Joke</H1>
+    <H1 onclick="SayPunchLine()">Say Punch Line</H1>
     <H3 id="state">ROBOT COMMAND WINDOW</H3>
     <form action="">
         <input id="m" autocomplete="off" />
@@ -45,6 +46,9 @@
         }
         function SayJoke() {
             socket.emit('chat message', "SayJoke");
+        }
+        function SayPunchLine() {
+            socket.emit('chat message', "SayPunchLine");
         }
         socket.on('chat message', function(msg) {
             document.getElementById("state").innerHTML = msg;
