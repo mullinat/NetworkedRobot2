@@ -1,6 +1,6 @@
 var fs = require('fs');
-var Questions = JSON.parse(fs.readFileSync('Questions.json', 'utf8'));
-var Answers = JSON.parse(fs.readFileSync('Answers.json', 'utf8'));
+//var Questions = JSON.parse(fs.readFileSync('Questions.json', 'utf8'));
+//var Answers = JSON.parse(fs.readFileSync('Answers.json', 'utf8'));
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -23,7 +23,7 @@ function say(saying) {
     spawn('say', ['"' + saying + '"', '']);
 }
 
-var port = new SerialPort('/dev/ttyACM0', {
+var port = new SerialPort('/dev/ttyUSB1', {
     parser: serialport.parsers.raw
 });
 app.get('/', function(req, res) {
